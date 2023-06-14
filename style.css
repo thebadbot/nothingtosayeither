@@ -6,3 +6,9 @@ html, body {
 canvas {
   display: block;
 }
+
+@media only screen and (max-width: 800px) {
+     canvas, img {
+        width: 100%;
+    }
+}
