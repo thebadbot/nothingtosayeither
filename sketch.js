@@ -265,7 +265,7 @@ function ComplexDFT() {
 }
 
 function setup() {
-  canvas = createCanvas(800, 635);
+  canvas = createCanvas(800, 650);
 
   simple = new SimpleDFT();
   complex = new ComplexDFT();
@@ -299,5 +299,5 @@ function draw() {
       drawCount++;
     }
   }
-  image(img, 0, 500);
+  image(img, 0, 550);
 }
