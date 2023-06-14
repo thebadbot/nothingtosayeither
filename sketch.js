@@ -1,8 +1,13 @@
 let canvas;
 let simple;
 let complex;
-let isSimple;
-let drawCount;
+let isSimple = true;
+let drawCount = 0;
+let img;
+
+function preload(){
+  img = loadImage("img.png")
+}
 
 function SimpleDFT() {
     this.coordx = [];
@@ -57,12 +62,12 @@ function SimpleDFT() {
           x += dftXY[X].ampl * cos(dftXY[X].freq * this.time + dftXY[X].phase + rot);
           y += dftXY[X].ampl * sin(dftXY[X].freq * this.time + dftXY[X].phase + rot);
 
-          (X > 0 ? stroke(220, 100) : stroke(220));
+          (X > 0 ? stroke(253, 203, 46, 100) : stroke(253, 203, 46));
           noFill();
           ellipse(prevx, prevy, dftXY[X].ampl*2);
-          stroke(220);
+          stroke(253, 203, 46);
 
-          fill(220);
+          fill(253, 203, 46);
           line(prevx, prevy, x, y);
        }
        return createVector(x, y);
@@ -70,7 +75,7 @@ function SimpleDFT() {
 
      this.draw = function() {
        if(this.iteration < this.coordx.length+1){
-         background(51);
+         background(0);
 
          let vx = this.epicycles(400, 50, 0, this.dftX);
          let vy = this.epicycles(50, 300, HALF_PI, this.dftY);
@@ -195,12 +200,12 @@ function ComplexDFT() {
          im += dftIY[X].ampl * sin(dftIY[X].freq * this.time + dftIY[X].phase + rot);
 
          if(this.iteration < this.coordi.length){
-           (X > 0 ? stroke(220, 100) : stroke(220));
+           (X > 0 ? stroke(253, 203, 46, 100) : stroke(253, 203, 46));
            noFill();
            ellipse(prevre, previm, dftIY[X].ampl*2);
-           stroke(220);
+           stroke(253, 203, 46);
 
-           fill(220);
+           fill(253, 203, 46);
            line(prevre, previm, re, im);
          }
       }
@@ -209,7 +214,7 @@ function ComplexDFT() {
 
     this.draw = function() {
       if(this.iteration < this.coordi.length+1){
-        background(51);
+        background(0);
 
         let vi = this.epicycles(width/2, height/2, 0, this.dftI);
         this.path.unshift(vi);
@@ -224,6 +229,7 @@ function ComplexDFT() {
         const dt = TWO_PI / this.dftI.length;
         this.time -= dt;
         this.iteration++;
+
         return false;
       }
       return true;
@@ -259,7 +265,7 @@ function ComplexDFT() {
 }
 
 function setup() {
-  canvas = createCanvas(800, 600);
+  canvas = createCanvas(800, 635);
 
   simple = new SimpleDFT();
   complex = new ComplexDFT();
@@ -293,48 +299,6 @@ function draw() {
       drawCount++;
     }
   }
-//  if(simple.draw()){
-//        if(drawCount % 2 == 0){
-//          simple.setHeartReverse();
-//        }else{
-//          simple.setHeart();
-//        }
-//
-//        drawCount++;
-//  }
-//  if(iteration < coordx.length+1){
-//    background(51);
-//
-//    let vx = epicycles(400, 50, 0, dftX);
-//    let vy = epicycles(50, 300, HALF_PI, dftY);
-//    let v = createVector(vx.x, vy.y);
-//
-//    path.unshift(v);
-//
-//    if(iteration < coordx.length){
-//      line(vx.x, vx.y, v.x, v.y);
-//      line(vy.x, vy.y, v.x, v.y);
-//    }
-//    beginShape();
-//    noFill();
-//    for(let i = 0; i < path.length; i++) {
-//      vertex(path[i].x, path[i].y);
-//    }
-//    endShape();
-//
-//    const dt = TWO_PI / dftY.length;
-//    time -= dt;
-//    iteration++;
-//  }else{
-//    if(drawCount % 2 == 0){
-//        setHeart();
-//    }else{
-//       setHeartReverse();
-//    }
-//
-//    drawCount++;
-//  }
-}
 
-function reset() {
+  image(img, 500, 0, 635, 800);
 }
