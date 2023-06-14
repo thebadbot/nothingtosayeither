@@ -1,9 +1,3 @@
-@media screen and (max-width: 800px) {
-   html {
-      transform: scale(.67);
-   }
-}
-
 html, body {
   margin: 0;
   padding: 0;
